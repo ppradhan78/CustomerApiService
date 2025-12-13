@@ -1,6 +1,8 @@
 package org.pkp.controllers.v1;
 
 import lombok.RequiredArgsConstructor;
+import org.pkp.client.OrderClient;
+import org.pkp.dto.OrdersDto;
 import org.pkp.entity.Customers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import java.util.Optional;
 public class CustomersController {
     @Autowired
     private final org.pkp.services.CustomersService service;
+
+    @Autowired
+    private OrderClient orderClient;
 
     @GetMapping
     public ResponseEntity<List<Customers>> findAll() {
@@ -80,5 +85,14 @@ public class CustomersController {
             @RequestParam(required = false, defaultValue = "") String companyName) {
 
         return ResponseEntity.ok(service.findByCompanyName(companyName));
+    }
+
+    @GetMapping("order/customerID")
+    public ResponseEntity<List<OrdersDto>> getOrdersByCustomer(
+            @RequestParam(required = false, defaultValue = "") String customerID) {
+
+        List<OrdersDto> orders = orderClient.getOrdersByCustomer(customerID);
+        return ResponseEntity.ok(orders);
+
     }
 }
