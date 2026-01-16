@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: NorthwindCustomerApiService
+
+  datasource:
+    url: jdbc:sqlserver://localhost:49771;encrypt=true;trustServerCertificate=true;databaseName=NORTHWND
+    username: admin
+    password: admin@2025
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    # show-sql: true
+
+  main:
+    banner-mode: off
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+order:
+  service:
+    url: http://localhost:8081/api/orders/
+    timeout: 5000
+
+logging:
+  level:
+    root: INFO
+
+    # Reduce Spring noise
+    org:
+      #springframework: WARN
+      springframework:
+        boot:
+          autoconfigure: WARN
+        web: WARN
+        security: WARN
+      hibernate: WARN
+      apache: WARN
+    zaxxer:
+      hikari: WARN
+
+resilience4j:
+  ratelimiter:
+    instances:
+      getHierarchyRateLimiter:
+        limitForPeriod: 1
+        limitRefreshPeriod: 60s
+        timeoutDuration: 0
