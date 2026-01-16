@@ -1,0 +1,10 @@
+<appender name="DB"
+          class="ch.qos.logback.classic.db.DBAppender">
+    <connectionSource
+            class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+        <driverClass>com.microsoft.sqlserver.jdbc.SQLServerDriver</driverClass>
+        <url>jdbc:sqlserver://localhost:1433;databaseName=NORTHWND</url>
+        <user>admin</user>
+        <password>admin@2025</password>
+    </connectionSource>
+</appender>
