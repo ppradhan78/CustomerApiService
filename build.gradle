@@ -23,6 +23,7 @@ dependencies {
     // Logging to sql server db
 //    implementation 'org.springframework.boot:spring-boot-starter-logging'
 //    implementation 'ch.qos.logback:logback-db:1.4.14'
+    implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.2.0'
 
 
     // Lombok

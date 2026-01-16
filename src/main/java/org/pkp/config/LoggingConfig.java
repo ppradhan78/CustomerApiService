@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LoggingConfig {
     public LoggingConfig(LoggingSystem loggingSystem) {
-        loggingSystem.setLogLevel("ROOT",LogLevel.DEBUG );
+        loggingSystem.setLogLevel("ROOT",LogLevel.ERROR );
     }
 }

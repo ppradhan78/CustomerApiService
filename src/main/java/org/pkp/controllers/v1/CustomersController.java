@@ -1,6 +1,8 @@
 package org.pkp.controllers.v1;
 
 import ch.qos.logback.classic.Level;
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import org.pkp.client.OrderClient;
 import org.pkp.dto.OrdersDto;
@@ -8,6 +10,7 @@ import org.pkp.entity.Customers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,7 @@ public class CustomersController {
     @Autowired
     private OrderClient orderClient;
 
+@RateLimiter(name = "getHierarchyRateLimiter")
     @GetMapping
     public ResponseEntity<List<Customers>> findAll() {
         logger.info("Processing CustomersController");
